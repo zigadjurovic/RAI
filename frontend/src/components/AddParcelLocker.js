@@ -1,51 +1,69 @@
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, Stack } from "@chakra-ui/react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import './styles/AddParcelLocker.css';
 
 function AddParcelLocker() {
-  const [numberParcelLocker, setNumberParcelLocker] = useState("");
-  const [nameParcelLocker, setNameParcelLocker] = useState("");
-  const navigate = useNavigate();
+  const [numberParcelLocker, setNumberParcelLocker] = useState('');
+  const [nameParcelLocker, setNameParcelLocker] = useState('');
+  const [uploaded, setUploaded] = useState(false);
 
-  const handleAddParcelLocker = (e) => {
-    console.log("handle function called"); // Add this console log statement
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("Number:", numberParcelLocker);
-    console.log("Name:", nameParcelLocker);
-    navigate("/", { replace: true });
+
+    if (!numberParcelLocker || !nameParcelLocker) {
+      alert('Please enter the parcel number and name');
+      return;
+    }
+
+    const payload = {
+      numberParcelLocker,
+      nameParcelLocker
+    };
+
+    const res = await fetch('http://localhost:3001/parcel-lockers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    setUploaded(true);
   };
 
   return (
-    <Flex p={8} justifyContent="center" alignItems="center" minH="100vh">
-      <Box borderWidth="2px" p={8} borderRadius="lg" w="md">
-        <Stack spacing={4}>
-          <Heading fontSize="2xl">Add Parcel Locker</Heading>
-          <form onSubmit={handleAddParcelLocker}>
-            <FormControl id="numberParcelLocker">
-              <FormLabel>Parcel Number/ID:</FormLabel>
-              <Input
-                value={numberParcelLocker}
-                onChange={(e) => setNumberParcelLocker(e.target.value)}
-                type="text"
-                required
-              />
-            </FormControl>
-            <FormControl id="nameParcelLocker">
-              <FormLabel>Parcel Name:</FormLabel>
-              <Input
-                value={nameParcelLocker}
-                onChange={(e) => setNameParcelLocker(e.target.value)}
-                type="text"
-                required
-              />
-            </FormControl>
-            <Button colorScheme="teal" type="submit">
-              Add Parcel Locker
-            </Button>
-          </form>
-        </Stack>
-      </Box>
-    </Flex>
+    <div className="form-container">
+      <div className="form-heading">
+        <h2>Add Parcel Locker</h2>
+      </div>
+      <form className="form-group mx-auto" onSubmit={onSubmit} style={{ maxWidth: '400px' }}>
+        {uploaded && <Navigate replace to="/" />}
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            name="numberParcelLocker"
+            placeholder="Parcel Number/ID"
+            value={numberParcelLocker}
+            onChange={(e) => setNumberParcelLocker(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            name="nameParcelLocker"
+            placeholder="Parcel Name"
+            value={nameParcelLocker}
+            onChange={(e) => setNameParcelLocker(e.target.value)}
+          />
+        </div>
+        <div className="mb-3 text-center">
+          <input className="btn btn-primary" type="submit" name="submit" value="Add" />
+        </div>
+      </form>
+    </div>
   );
 }
 
