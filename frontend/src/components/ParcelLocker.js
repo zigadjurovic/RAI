@@ -1,96 +1,83 @@
-import { Tr, Td, Wrap, WrapItem, Stack, StackItem, Button, Tooltip, Link, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter } from '@chakra-ui/react';
-import { MdBuild, MdVpnKey, MdUpdate, MdDelete } from 'react-icons/md';
-import { WiDayCloudyWindy } from 'react-icons/wi';
-import { useDisclosure } from '@chakra-ui/react';
-import { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Container, Box, Heading, Text, Button, Input } from '@chakra-ui/react';
 
+function ParcelLocker() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [parcelLocker, setParcelLocker] = useState(null);
+  const [name, setName] = useState('');
+  const [numberParcelLocker, setNumberParcelLocker] = useState('');
 
-function ParcelLocker(props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
+  useEffect(() => {
+    const fetchParcelLocker = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/parcel-lockers/${id}`, {
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setParcelLocker(data);
+          setName(data.name);
+          setNumberParcelLocker(data.numberParcelLocker);
+        } else {
+          console.error('Failed to fetch parcel locker');
+        }
+      } catch (error) {
+        console.error('Error fetching parcel locker:', error);
+      }
+    };
+    fetchParcelLocker();
+  }, [id]);
+
+  
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this parcel locker?')) {
+      try {
+        const response = await fetch(`http://localhost:3001/parcel-lockers/${id}`, {
+          method: 'DELETE',
+          credentials: 'include',
+        });
+        if (response.ok) {
+          navigate('/ParcelLockers');
+        } else {
+          console.error('Failed to delete parcel locker');
+        }
+      } catch (error) {
+        console.error('Error deleting parcel locker:', error);
+      }
+    }
+  };
+
+  if (!parcelLocker) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <Tr>
-      <Td>
-        <Wrap>
-          <WrapItem>
-            <img src="https://www.direct4.me/Portals/_default/Skins/D4ME-WEB/images/d-box.png" width={50} height={50} />
-          </WrapItem>
-          <WrapItem>
-            <Stack spacing={1}>
-              <StackItem>
-                <b>{props.parcelLocker.numberParcelLocker}</b>
-              </StackItem>
-              <StackItem>{props.parcelLocker.name}</StackItem>
-            </Stack>
-          </WrapItem>
-        </Wrap>
-      </Td>
-
-      <Td>
-        <Link to={`/accessPermissions/${props.parcelLocker._id}`}>
-          <Button leftIcon={<MdBuild />} colorScheme="blue">
-            Pregled
-          </Button>
-        </Link>
-      </Td>
-      <Td>
-        <Link to={`/unlocks/${props.parcelLocker._id}`}>
-          <Button leftIcon={<MdVpnKey />} colorScheme="teal">
-            Odklepi
-          </Button>
-        </Link>
-      </Td>
-      <Td>
-        <Link to={`/ParcelLocker/${props.parcelLocker._id}`}>
-          <Button leftIcon={<MdUpdate />} colorScheme="blue">
-            Uredi
-          </Button>
-        </Link>
-      </Td>
-      <Td>
-        <Button onClick={onOpen} leftIcon={<MdDelete />} colorScheme="red">
-          Izbriši
+    <Container maxW="md" centerContent mt={10}>
+      <Box p={6} borderWidth={1} borderRadius="md" shadow="md">
+        <Heading mb={4}>Edit Parcel Locker</Heading>
+        <Input
+          mb={3}
+          placeholder="Name"
+          value={name}
+          onChange={event => setName(event.target.value)}
+        />
+        <Input
+          mb={6}
+          placeholder="Number"
+          value={numberParcelLocker}
+          onChange={event => setNumberParcelLocker(event.target.value)}
+        />
+        <Button colorScheme="blue" onClick={handleEdit} mr={2}>
+          Save
         </Button>
-        <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                {"Izbriši Paketnik " + props.parcelLocker.name + "(" + props.parcelLocker.numberParcelLocker + ")"}
-              </AlertDialogHeader>
-
-              <AlertDialogBody>
-                {"Ali ste prepričani, da želite izbrisati paketnik "}
-                <b>{props.parcelLocker.name}</b>
-                {"(" + props.parcelLocker.numberParcelLocker + ") ?"}
-              </AlertDialogBody>
-
-              <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={onClose}>
-                  Prekliči
-                </Button>
-                <Button
-                  colorScheme="red"
-                  onClick={(e) => {
-                    const res = fetch("http://localhost:3001/parcel-lockers/" + props.parcelLocker._id, {
-                      method: 'DELETE',
-                      credentials: 'include',
-                      headers: { 'Content-Type': 'application/json' },
-                    }).then((response) => {
-                      onClose();
-                      window.location.reload(false);
-                    });
-                  }}
-                  ml={3}
-                >
-                  Izbriši
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
-      </Td>
-    </Tr>
+        <Button colorScheme="red" onClick={handleDelete}>
+          Delete
+        </Button>
+      </Box>
+    </Container>
   );
 }
 
