@@ -30,7 +30,30 @@ function ParcelLocker() {
     fetchParcelLocker();
   }, [id]);
 
-  
+  const handleEdit = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/parcel-lockers/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          numberParcelLocker: numberParcelLocker,
+        }),
+        credentials: 'include',
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setParcelLocker(data);
+        navigate(`/parcel/${id}`);
+      } else {
+        console.error('Failed to update parcel locker');
+      }
+    } catch (error) {
+      console.error('Error updating parcel locker:', error);
+    }
+  };
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this parcel locker?')) {
