@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from "./userContext";
 import Header from "./components/Header";
-import ParcelLockers from "./components/ParcelLockers";
+import ParcelLockers from './components/ParcelLockers';
+import ParcelLocker from './components/ParcelLocker';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
@@ -53,6 +54,9 @@ function App() {
             <Route path="/addParcelLocker" exact element={<AddParcelLocker />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/logout" element={<Logout />}></Route>
+            <Route exact path="/parcel-lockers" component={ParcelLockers} />
+            <Route exact path="/parcel-lockers/:id" component={ParcelLocker} />
+            
           </Routes>
         </div>
       </UserContext.Provider>
