@@ -7,7 +7,7 @@ const ParcelLockers = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/parcel-lockers/api/parcels')
+      .get('http://localhost:3001/parcel-lockers')
       .then(response => {
         setParcels(response.data);
       })
@@ -34,7 +34,8 @@ const ParcelLockers = () => {
         <div key={parcel._id}>
           <h3>{parcel.name}</h3>
           <p>Number: {parcel.numberParcelLocker}</p>
-          <Link to={`/parcel/${parcel._id}`}>Select</Link>
+          <Link to={`/parcel-lockers/${parcel._id}`}>Select</Link>
+          <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link>
           <button onClick={() => handleDelete(parcel._id)}>Delete</button>
         </div>
       ))}
