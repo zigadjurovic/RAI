@@ -4,6 +4,7 @@ import { UserContext } from "./userContext";
 import Header from "./components/Header";
 import ParcelLockers from './components/ParcelLockers';
 import ParcelLocker from './components/ParcelLocker';
+import EditParcelLocker from './components/EditParcelLocker';
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
@@ -56,7 +57,7 @@ function App() {
             <Route path="/logout" element={<Logout />}></Route>
             <Route exact path="/parcel-lockers" component={ParcelLockers} />
             <Route exact path="/parcel-lockers/:id" component={ParcelLocker} />
-            
+            <Route path="/parcel-lockers/:id/edit" element={<EditParcelLocker />} />
           </Routes>
         </div>
       </UserContext.Provider>
