@@ -1,66 +1,46 @@
-import { useContext, useState, useEffect } from 'react';
-import { UserContext } from '../userContext';
-import { Navigate } from 'react-router-dom';
-import ParcelLocker from './ParcelLocker';
-import { Table, Thead, Tbody, Tr, Th, TableCaption, TableContainer, Box, Heading } from '@chakra-ui/react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import markerIconPng from 'leaflet/dist/images/marker-icon.png';
-import "leaflet/dist/images/marker-icon.png";
-import { Icon } from 'leaflet';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-function ParcelLockers() {
-  const userContext = useContext(UserContext);
-  const [parcelLockers, setParcelLockers] = useState([]);
-  const [coordinates, setCoordinates] = useState([51.505, -0.09]);
+const ParcelLockers = () => {
+  const [parcels, setParcels] = useState([]);
 
   useEffect(() => {
-    const getParcelLockers = async () => {
-      const res = await fetch('http://localhost:3001/parcellockers', { credentials: 'include' });
-      const data = await res.json();
-      console.log(data);
-      setParcelLockers(data);
-    };
-    getParcelLockers();
+    axios
+      .get('http://localhost:3001/parcel-lockers')
+      .then(response => {
+        setParcels(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
-  if (parcelLockers.length > 0) {
-    return (
-      <>
-        {!userContext.user ? <Navigate replace to="/login" /> : ''}
-        <TableContainer>
-          <Table variant="simple" size="md">
-            <TableCaption>Vsi paketniki</TableCaption>
-            <Thead>
-              <Tr>
-                <Th>Paketnik</Th>
-                <Th>Pravice dostopa</Th>
-                <Th>Odklepi</Th>
-                <Th>Uredi</Th>
-                <Th>Briši</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {parcelLockers.map((parcelLocker) => (
-                <ParcelLocker parcelLocker={parcelLocker} key={parcelLocker._id} />
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-        <Box p={8}>
-          <Heading mb={6}>Nimate paketnikov!</Heading>
-        </Box>
-      </>
-    );
-  } else {
-    return (
-      <>
-        {!userContext.user ? <Navigate replace to="/login" /> : ''}
-        <Box p={12}>
-          <Heading mb={6}>Nimate paketnikov!</Heading>
-        </Box>
-      </>
-    );
-  }
-}
+  const handleDelete = async id => {
+    if (window.confirm('Are you sure you want to delete this parcel locker?')) {
+      try {
+        await axios.delete(`http://localhost:3001/parcel-lockers/${id}`);
+        setParcels(prevParcels => prevParcels.filter(parcel => parcel._id !== id));
+      } catch (error) {
+        console.error('Error deleting parcel locker:', error);
+      }
+    }
+  };
+
+  return (
+    <div>
+      <h2>Parcel Lockers</h2>
+      {parcels.map(parcel => (
+        <div key={parcel._id}>
+          <h3>{parcel.name}</h3>
+          <p>Number: {parcel.numberParcelLocker}</p>
+          <Link to={`/parcel-lockers/${parcel._id}`}>Select</Link>
+          <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link>
+          <button onClick={() => handleDelete(parcel._id)}>Delete</button>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default ParcelLockers;
