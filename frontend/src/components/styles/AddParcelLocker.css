@@ -1,36 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+body {
+  background: #e0e0e0;
+}
+
 .form-container {
-    text-align: center;
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  font-family: 'Comfortaa', cursive;
+  border-radius: 50px;
 }
-
-.form-heading {
-    padding-top: 2%;
-
-}
-
-.form-heading h2 {
-    font-size: 24px;
-    color: #333;
-}
-
 
 .form-group {
-    text-align: center;
-    margin: 3%;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 600px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow:  -11px 11px 22px #bebebe, 11px -11px 22px #ffffff;
 }
 
-.form-control {
-    margin-bottom: 20px;
+.form-group input {
+  outline: 0;
+  background: #e0e0e0;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Comfortaa', cursive;
 }
 
-.btn {
-    background-color: #4B82AA;
-    border-color: #4B82AA;
-    width: 100%;
-    border-radius: 10px;
-
+.form-group input[type="submit"] {
+  background: #4B82AA;
 }
 
-.btn-primary:hover {
-    background-color: #4B82AA;
-    border-color: #4B82AA;
+.form-group input[type="submit"]:hover {
+  background: #395591;
+}
+
+.form-group input:focus {
+  background: #e0e0e0;
+}
+
+.form-group button {
+  font-family: 'Comfortaa', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #e0e0e0;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form-group button:active {
+  background: #395591;
 }
