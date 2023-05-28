@@ -48,7 +48,7 @@ function App() {
         setUserContext: updateUserData
       }}>
         <div className="app-container">
-          <Header title="Direct4U Packet Lockers" />
+          <Header title="Direct4me Packet Lockers" />
           <div className="content-container">
             <Routes>
               <Route path="/" exact element={<ParcelLockers />} />
