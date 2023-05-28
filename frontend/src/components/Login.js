@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../userContext';
 import { Navigate } from 'react-router-dom';
+import "./styles/Login.css"; // Import CSS file for styling
 
 function Login(){
     const [username, setUsername] = useState("");
@@ -32,12 +33,18 @@ function Login(){
     return (
         <form onSubmit={Login}>
             {userContext.user ? <Navigate replace to="/" /> : ""}
-            <input type="text" name="username" placeholder="Username"
-             value={username} onChange={(e)=>(setUsername(e.target.value))}/>
-             <input type="password" name="password" placeholder="Password"
-             value={password} onChange={(e)=>(setPassword(e.target.value))}/>
-             <input type="submit" name="submit" value="Log in"/>
-             <label>{error}</label>
+            <div class="login">
+                <div class="form">
+                    <p>Welcome</p>
+                        <input type="text" name="username" placeholder="Username"
+                        value={username} onChange={(e)=>(setUsername(e.target.value))}/>
+                        <input type="password" name="password" placeholder="Password"
+                        value={password} onChange={(e)=>(setPassword(e.target.value))}/>
+                        <input type="submit" name="submit" value="Log in"/>
+                    
+                </div>
+            </div>
+            <label>{error}</label>
         </form>
     );
 }

@@ -65,33 +65,33 @@ module.exports = {
     });
   },
 
-  create: function (req, res) {
-    console.log("Create function called"); // Add this console log statement
+  create: function(req, res) {
+    console.log("Create function called");
     
     var parcelLocker = new ParcelLockerModel({
       numberParcelLocker: req.body.numberParcelLocker,
-      nameParcelLocker: req.body.nameParcelLocker
+      name: req.body.nameParcelLocker
     });
-
-    console.log('Request Payload:', req.body); // Log the request payload
   
+    console.log('Request Payload:', req.body);
+    
     parcelLocker.save(function (err, parcelLocker) {
-        if (err) {
-          console.error("Error when creating parcelLocker:", err); // Add this console log statement
+      if (err) {
+        console.error("Error when creating parcelLocker:", err);
     
-          return res.status(500).json({
-            message: 'Error when creating parcelLocker',
-            error: err
-          });
-        }
+        return res.status(500).json({
+          message: 'Error when creating parcelLocker',
+          error: err
+        });
+      }
     
-        return res.status(201).json(parcelLocker);
-      });
+      return res.status(201).json(parcelLocker);
+    });
   },
 
   update: function(req, res) {
     var id = req.params.id;
-
+  
     ParcelLockerModel.findOne({ _id: id }, 'numberParcelLocker name', function(err, parcelLocker) {
       if (err) {
         return res.status(500).json({
@@ -99,16 +99,16 @@ module.exports = {
           error: err
         });
       }
-
+  
       if (!parcelLocker) {
         return res.status(404).json({
           message: 'No such parcelLocker'
         });
       }
-
+  
       parcelLocker.numberParcelLocker = req.body.numberParcelLocker || parcelLocker.numberParcelLocker;
-      parcelLocker.name = req.body.nameParcelLocker || parcelLocker.name;
-
+      parcelLocker.name = req.body.name || parcelLocker.name;
+  
       parcelLocker.save(function(err, parcelLocker) {
         if (err) {
           return res.status(500).json({
@@ -116,11 +116,11 @@ module.exports = {
             error: err
           });
         }
-
+  
         return res.json(parcelLocker);
       });
     });
-  },
+  },  
 
   remove: function(req, res) {
     var id = req.params.id;
@@ -134,6 +134,19 @@ module.exports = {
       }
 
       return res.status(204).json();
+    });
+  },
+
+  getAllParcels: function (req, res) {
+    ParcelLockerModel.find({}, 'numberParcelLocker name', function (err, parcels) {
+      if (err) {
+        return res.status(500).json({
+          message: 'Error when getting parcels.',
+          error: err
+        });
+      }
+
+      return res.json(parcels);
     });
   }
 };

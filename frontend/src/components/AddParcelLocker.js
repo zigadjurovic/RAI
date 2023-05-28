@@ -37,7 +37,7 @@ function AddParcelLocker() {
       <div className="form-heading">
         <h2>Add Parcel Locker</h2>
       </div>
-      <form className="form-group mx-auto" onSubmit={onSubmit} style={{ maxWidth: '400px' }}>
+      <form className="form-group mx-auto" onSubmit={onSubmit}>
         {uploaded && <Navigate replace to="/" />}
         <div className="mb-3">
           <input

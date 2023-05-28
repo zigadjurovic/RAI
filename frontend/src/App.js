@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Logout from "./components/Logout";
 import AddParcelLocker from "./components/AddParcelLocker";
+import './components/styles/App.css';
 
 function App() {
   /**
@@ -46,19 +47,21 @@ function App() {
         user: user,
         setUserContext: updateUserData
       }}>
-        <div className="App">
-          <Header title="My application"></Header>
-          <Routes>
-            <Route path="/" exact element={<ParcelLockers />}></Route>
-            <Route path="/login" exact element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
-            <Route path="/addParcelLocker" exact element={<AddParcelLocker />}></Route>
-            <Route path="/profile" element={<Profile />}></Route>
-            <Route path="/logout" element={<Logout />}></Route>
-            <Route exact path="/parcel-lockers" component={ParcelLockers} />
-            <Route exact path="/parcel-lockers/:id" component={ParcelLocker} />
-            <Route path="/parcel-lockers/:id/edit" element={<EditParcelLocker />} />
-          </Routes>
+        <div className="app-container">
+          <Header title="Direct4me Packet Lockers" />
+          <div className="content-container">
+            <Routes>
+              <Route path="/" exact element={<ParcelLockers />} />
+              <Route path="/login" exact element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/addParcelLocker" exact element={<AddParcelLocker />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route exact path="/parcel-lockers" component={ParcelLockers} />
+              <Route exact path="/parcel-lockers/:id" component={ParcelLocker} />
+              <Route path="/parcel-lockers/:id/edit" element={<EditParcelLocker />} />
+            </Routes>
+          </div>
         </div>
       </UserContext.Provider>
     </BrowserRouter>
