@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../userContext';
 import { Navigate } from 'react-router-dom';
+import './styles/Profile.css';
 
 function Profile(){
     const userContext = useContext(UserContext); 
@@ -16,12 +17,14 @@ function Profile(){
     }, []);
 
     return (
-        <>
+        <div className="form-container">
             {!userContext.user ? <Navigate replace to="/login" /> : ""}
-            <h1>User profile</h1>
-            <p>Username: {profile.username}</p>
-            <p>Email: {profile.email}</p>
-        </>
+            <div className="form-group">
+                <h2>User profile</h2>
+                <p className="profile-field">Username: {profile.username}</p>
+                <p className="profile-field">Email: {profile.email}</p>
+            </div>
+        </div>
     );
 }
 

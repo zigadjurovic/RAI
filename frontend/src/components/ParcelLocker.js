@@ -79,27 +79,29 @@ function ParcelLocker() {
 
   return (
     <Container maxW="md" centerContent mt={10}>
-      <Box p={6} borderWidth={1} borderRadius="md" shadow="md">
-        <Heading mb={4}>Edit Parcel Locker</Heading>
+      <Box p={6} borderWidth={1} borderRadius="md" shadow="md" backgroundColor="#F2F2F2" mt={5} mb={5}>
+        <Heading mb={4} fontFamily="'Comfortaa', cursive">Edit Parcel Locker</Heading>
         <Input
-          mb={3}
-          placeholder="Name"
-          value={name}
-          onChange={event => setName(event.target.value)}
+            mb={3}
+            placeholder="Name"
+            value={name}
+            onChange={event => setName(event.target.value)}
+            backgroundColor="#e0e0e0"
         />
         <Input
-          mb={6}
-          placeholder="Number"
-          value={numberParcelLocker}
-          onChange={event => setNumberParcelLocker(event.target.value)}
+            mb={6}
+            placeholder="Number"
+            value={numberParcelLocker}
+            onChange={event => setNumberParcelLocker(event.target.value)}
+            backgroundColor="#e0e0e0"
         />
         <Button colorScheme="blue" onClick={handleEdit} mr={2}>
-          Save
+            Save
         </Button>
-        <Button colorScheme="red" onClick={handleDelete}>
-          Delete
+        <Button backgroundColor="#CC0000" color="white" onClick={handleDelete}>
+            Delete
         </Button>
-      </Box>
+        </Box>
     </Container>
   );
 };

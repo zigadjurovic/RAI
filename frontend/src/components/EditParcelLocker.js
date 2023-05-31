@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Box, Heading, Text, Button, Input } from '@chakra-ui/react';
+import { useParams, useNavigate } from 'react-router-dom';
+import './styles/AddParcelLocker.css'; // Import the same CSS file
 
 function EditParcelLocker() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [numberParcelLocker, setNumberParcelLocker] = useState('');
 
@@ -32,7 +33,7 @@ function EditParcelLocker() {
         credentials: 'include',
       });
       if (response.ok) {
-        alert('Parcel Locker updated!');
+        navigate('/');
       } else {
         console.error('Failed to update parcel locker');
       }
@@ -42,26 +43,30 @@ function EditParcelLocker() {
   };
 
   return (
-    <Container maxW="md" centerContent mt={10}>
-      <Box p={6} borderWidth={1} borderRadius="md" shadow="md">
-        <Heading mb={4}>Edit Parcel Locker</Heading>
-        <Input
-          mb={3}
+    <div className="form-container">
+      <div className="form-heading">
+        <h2>Edit Parcel Locker</h2>
+      </div>
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control"
           placeholder="Name"
           value={name}
           onChange={event => setName(event.target.value)}
         />
-        <Input
-          mb={6}
+        <input
+          type="text"
+          className="form-control"
           placeholder="Number"
           value={numberParcelLocker}
           onChange={event => setNumberParcelLocker(event.target.value)}
         />
-        <Button colorScheme="blue" onClick={handleUpdate}>
+        <button onClick={handleUpdate} className="form-control">
           Update
-        </Button>
-      </Box>
-    </Container>
+        </button>
+      </div>
+    </div>
   );
 }
 

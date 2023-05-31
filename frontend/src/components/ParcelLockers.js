@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import "./styles/ParcelLockers.css";
 
 const ParcelLockers = () => {
   const [parcels, setParcels] = useState([]);
@@ -28,18 +29,18 @@ const ParcelLockers = () => {
   };
 
   return (
-    <div>
-      <h2>Parcel Lockers</h2>
-      {parcels.map(parcel => (
-        <div key={parcel._id}>
-          <h3>{parcel.name}</h3>
-          <p>Number: {parcel.numberParcelLocker}</p>
-          <Link to={`/parcel-lockers/${parcel._id}`}>Select</Link>
-          <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link>
-          <button onClick={() => handleDelete(parcel._id)}>Delete</button>
-        </div>
-      ))}
-    </div>
+    <div className="parcel-lockers">
+    <h2>Parcel Lockers</h2>
+    {parcels.map(parcel => (
+      <div key={parcel._id} className="parcel-locker-card">
+        <h3>{parcel.name}</h3>
+        <p>Number: {parcel.numberParcelLocker}</p>
+        <Link to={`/parcel-lockers/${parcel._id}`}>Select</Link>
+        <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link>
+        <button onClick={() => handleDelete(parcel._id)}>Delete</button>
+      </div>
+    ))}
+  </div>
   );
 };
 
