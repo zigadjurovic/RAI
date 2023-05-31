@@ -34,12 +34,10 @@ function AddParcelLocker() {
 
   return (
     <div className="form-container">
-      <div className="form-heading">
-        <h2>Add Parcel Locker</h2>
-      </div>
       <form className="form-group mx-auto" onSubmit={onSubmit}>
         {uploaded && <Navigate replace to="/" />}
         <div className="mb-3">
+        <h2>Add Parcel Locker</h2>
           <input
             type="text"
             className="form-control"
@@ -60,7 +58,7 @@ function AddParcelLocker() {
           />
         </div>
         <div className="mb-3 text-center">
-          <input className="btn btn-primary" type="submit" name="submit" value="Add" />
+          <button className="btn btn-primary" type="submit" name="submit">Add</button>
         </div>
       </form>
     </div>
