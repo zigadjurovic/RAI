@@ -10,19 +10,15 @@ const MyParcels = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/parcel-lockers/parcels/user/${userContext.user._id}`)
-      .then(response => {
-        setTimeout(() => {
-          console.log("Response data:", response.data);
-        }, 100); // Delay of 100 milliseconds
-        setParcelLockers(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-    });
+  .get(`http://localhost:3001/parcel-lockers/api/parcels`)
+  .then(response => {
+    setParcelLockers(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
   }, [userContext.user._id]);
-  
 
   return (
     <div className="parcel-lockers">
