@@ -137,3 +137,8 @@
     width: 100%;
     /* transition: 0s; */
   }
+
+  #navbar li a.admin {
+    color: red;
+  }
+  
