@@ -2,17 +2,18 @@ const ParcelLockerModel = require('../models/parcelLockerModel.js');
 
 module.exports = {
   list: function(req, res) {
-    ParcelLockerModel.find({}, 'numberParcelLocker name', function(err, parcelLockers) {
+    ParcelLockerModel.find({}, 'numberParcelLocker name owner others', function(err, parcelLockers) {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting parcelLockers.',
           error: err
         });
       }
-
+  
       return res.json(parcelLockers);
     });
   },
+  
 
   myParcelLockers: function(req, res) {
     var id = req.session.userId;
@@ -66,29 +67,31 @@ module.exports = {
     });
   },
 
-  create: function(req, res) {
-    console.log("Create function called");
+  create: function (req, res) {
+    console.log('Create function called');
     console.log(req.session);
-  
+
     var parcelLocker = new ParcelLockerModel({
       numberParcelLocker: req.body.numberParcelLocker,
       name: req.body.nameParcelLocker,
-      userId : req.session.userId // this is assuming you have the user's id stored in the session
+      userId: req.session.userId,
+      owner: req.body.owner,
+      others: req.body.others
     });
-  
+
     console.log('Request Payload:', req.body);
     console.log('Session User ID:', req.session.userId);
-    
+
     parcelLocker.save(function (err, parcelLocker) {
       if (err) {
-        console.error("Error when creating parcelLocker:", err);
-    
+        console.error('Error when creating parcelLocker:', err);
+
         return res.status(500).json({
           message: 'Error when creating parcelLocker',
           error: err
         });
       }
-    
+
       return res.status(201).json(parcelLocker);
     });
   },

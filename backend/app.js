@@ -16,6 +16,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // vključimo routerje
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoutes');
+var adminRouter = require('./routes/adminRoutes');
 var parcelLockersRouter = require('./routes/parcelLockerRoutes');
 var historiesRouter = require('./routes/historyRoutes');
 
@@ -68,6 +69,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
 app.use('/parcel-lockers', parcelLockersRouter);
 app.use('/histories', historiesRouter);
 
