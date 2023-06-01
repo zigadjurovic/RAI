@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 import './styles/AddParcelLocker.css';
 
 function AddParcelLocker() {
@@ -20,17 +21,12 @@ function AddParcelLocker() {
       nameParcelLocker
     };
 
-    const res = await fetch('http://localhost:3001/parcel-lockers', {
-      method: 'POST',
-      credentials: 'include', // Include credentials in the request
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-    setUploaded(true);
+    try {
+      await axios.post('http://localhost:3001/parcel-lockers', payload);
+      setUploaded(true);
+    } catch (error) {
+      console.error('Error adding parcel locker:', error);
+    }
   };
 
   return (
