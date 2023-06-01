@@ -26,6 +26,9 @@ function Header(props) {
                     <Link to="/my-parcels">MyParcels</Link>
                     </li>
                     <li>
+                    {user.isAdmin && <Link to="/admin" className="nav-link">Admin</Link>}
+                    </li>
+                    <li>
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
