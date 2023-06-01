@@ -33,7 +33,7 @@ const ParcelLockers = () => {
     <h2>Parcel Lockers</h2>
     {parcels.map(parcel => (
       <div key={parcel._id} className="parcel-locker-card">
-        <h3>{parcel.name}</h3>
+        <h3>{parcel.name}</h3> {/* Updated this line */}
         <p>Number: {parcel.numberParcelLocker}</p>
         <Link to={`/parcel-lockers/${parcel._id}`}>Select</Link>
         <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link>
