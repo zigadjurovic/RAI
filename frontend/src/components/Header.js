@@ -16,17 +16,19 @@ function Header(props) {
         </div>
 
         <ul id="menu">
-          <li><Link to="/">Home</Link></li>
           {user ? (
                 <>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
                     <li>
                         <Link to="/addParcelLocker">Dodaj paketnik</Link>
                     </li>
                     <li>
-                    <Link to="/my-parcels">MyParcels</Link>
+                        <Link to="/my-parcels">MyParcels</Link>
                     </li>
                     <li>
-                    {user.isAdmin && <Link to="/admin" className="nav-link">Admin</Link>}
+                        {user.isAdmin && <Link to="/admin" className="nav-link">Admin</Link>}
                     </li>
                     <li>
                         <Link to="/profile">Profile</Link>
