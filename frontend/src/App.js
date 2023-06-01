@@ -53,6 +53,7 @@ function App() {
           <div className="content-container">
             <Routes>
               <Route path="/" exact element={<ParcelLockers />} />
+              <Route path="/admin" exact element={<ParcelLockers />}></Route>
               <Route path="/login" exact element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/addParcelLocker" exact element={<AddParcelLocker />} />
