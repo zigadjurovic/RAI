@@ -23,6 +23,9 @@ function Header(props) {
                         <Link to="/addParcelLocker">Dodaj paketnik</Link>
                     </li>
                     <li>
+                    <Link to="/my-parcels">MyParcels</Link>
+                    </li>
+                    <li>
                         <Link to="/profile">Profile</Link>
                     </li>
                     <li>
