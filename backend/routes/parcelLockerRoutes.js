@@ -3,6 +3,7 @@ var router = express.Router();
 var parcelLockerController = require('../controllers/parcelLockerController.js');
 const cors = require("cors");
 var allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+
 const corsSettings = cors({
     credentials: true,
     origin: function (origin, callback) {
@@ -23,6 +24,7 @@ router.use(bodyParser.json());
  */
 router.get('/all', corsSettings, parcelLockerController.list);
 router.get('/', corsSettings, parcelLockerController.myParcelLockers);
+router.get('/parcels/user/:id', corsSettings, parcelLockerController.getMyParcelsByUserId); //active
 /*
  * GET
  */
