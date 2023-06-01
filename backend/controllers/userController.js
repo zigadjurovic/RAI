@@ -141,6 +141,7 @@ module.exports = {
                 return next(err);
             }
             req.session.userId = user._id;
+            console.log("userId: " + req.session.userId);
             //res.redirect('/users/profile');
             return res.json(user);
         });
@@ -152,6 +153,7 @@ module.exports = {
             if(error){
                 return next(error);
             } else{
+                console.log("userId: " + req.session.userId);
                 if(user===null){
                     var err = new Error('Not authorized, go back!');
                     err.status = 400;
