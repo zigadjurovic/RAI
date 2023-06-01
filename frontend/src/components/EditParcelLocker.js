@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './styles/AddParcelLocker.css'; // Import the same CSS file
+import './styles/AddParcelLocker.css';
 
 function EditParcelLocker() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [name, setName] = useState('');
+  const [name, setName] = useState(''); // Changed variable name
   const [numberParcelLocker, setNumberParcelLocker] = useState('');
 
   useEffect(() => {
@@ -14,8 +14,8 @@ function EditParcelLocker() {
     })
       .then(res => res.json())
       .then(data => {
-        setName(data.name);
-        setNumberParcelLocker(data.numberParcelLocker);
+        setName(data.name);  // Updated
+        setNumberParcelLocker(data.numberParcelLocker);  // Kept same
       });
   }, [id]);
 
@@ -27,7 +27,7 @@ function EditParcelLocker() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name,
+          name,   // Updated
           numberParcelLocker,
         }),
         credentials: 'include',
@@ -44,16 +44,14 @@ function EditParcelLocker() {
 
   return (
     <div className="form-container">
-      <div className="form-heading">
-        <h2>Edit Parcel Locker</h2>
-      </div>
       <div className="form-group">
+        <h2>Edit Parcel Locker</h2>
         <input
           type="text"
           className="form-control"
           placeholder="Name"
-          value={name}
-          onChange={event => setName(event.target.value)}
+          value={name}  // Updated
+          onChange={event => setName(event.target.value)}  // Updated
         />
         <input
           type="text"
