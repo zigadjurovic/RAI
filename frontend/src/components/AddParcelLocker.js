@@ -22,6 +22,7 @@ function AddParcelLocker() {
 
     const res = await fetch('http://localhost:3001/parcel-lockers', {
       method: 'POST',
+      credentials: 'include', // Include credentials in the request
       headers: {
         'Content-Type': 'application/json'
       },
