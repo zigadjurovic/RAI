@@ -5,8 +5,7 @@ import { Container, Box, Heading, Text, Button, Input } from '@chakra-ui/react';
 function ParcelLocker() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [parcelLocker, setParcelLocker] = useState(null);
-  const [name, setName] = useState('');
+  const [name, setName] = useState(''); // Changed variable name
   const [numberParcelLocker, setNumberParcelLocker] = useState('');
 
   useEffect(() => {
@@ -17,9 +16,8 @@ function ParcelLocker() {
         });
         if (response.ok) {
           const data = await response.json();
-          setParcelLocker(data);
-          setName(data.name);
-          setNumberParcelLocker(data.numberParcelLocker);
+          setName(data.name); // Updated
+          setNumberParcelLocker(data.numberParcelLocker); // Kept same
         } else {
           console.error('Failed to fetch parcel locker');
         }
@@ -38,14 +36,15 @@ function ParcelLocker() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: name,
-          numberParcelLocker: numberParcelLocker,
+          name, // Updated
+          numberParcelLocker,
         }),
         credentials: 'include',
       });
       if (response.ok) {
         const data = await response.json();
-        setParcelLocker(data);
+        setName(data.name); // Updated
+        setNumberParcelLocker(data.numberParcelLocker); // Kept same
         navigate(`/parcel/${id}`);
       } else {
         console.error('Failed to update parcel locker');
@@ -73,7 +72,7 @@ function ParcelLocker() {
     }
   };
 
-  if (!parcelLocker) {
+  if (!name) { // Updated
     return <div>Loading...</div>;
   }
 
@@ -84,8 +83,8 @@ function ParcelLocker() {
         <Input
             mb={3}
             placeholder="Name"
-            value={name}
-            onChange={event => setName(event.target.value)}
+            value={name} // Updated
+            onChange={event => setName(event.target.value)} // Updated
             backgroundColor="#e0e0e0"
         />
         <Input
