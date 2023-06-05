@@ -24,7 +24,7 @@ router.use(bodyParser.json());
  */
 router.get('/all', corsSettings, parcelLockerController.list);
 router.get('/', corsSettings, parcelLockerController.myParcelLockers);
-router.get('/parcels/user/:id', corsSettings, parcelLockerController.getMyParcelsByUserId); //active
+router.get('/my-parcel-lockers/:id', corsSettings, parcelLockerController.getMyParcelLockers); //active
 /*
  * GET
  */
