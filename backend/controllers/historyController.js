@@ -41,7 +41,7 @@ module.exports = {
     add: function (req, res) {
         var history = new HistoryModel({
             parentMailBox : req.body.parentMailBox,
-            date : new Date(),
+            date : req.body.date,
             open : req.body.open
         });
 
