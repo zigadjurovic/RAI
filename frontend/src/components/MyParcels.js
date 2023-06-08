@@ -23,7 +23,7 @@ const MyParcels = () => {
 
   return (
     <div className="parcel-lockers">
-      <h2>My Parcel Lockers</h2>
+      <h2 className="titleMy">My Parcel Lockers</h2>
       {parcelLockers.map(parcelLocker => (
         <div key={parcelLocker._id} className="parcel-locker-card">
           <h3>{parcelLocker.name}</h3>
