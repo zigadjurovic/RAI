@@ -18,7 +18,7 @@ module.exports = {
   myParcelLockers: function (req, res) {
     var username = req.params.username; // Get the username from the request parameters
   
-    ParcelLockerModel.find({ owner: username }, 'numberParcelLocker name', function(err, parcelLockers) {
+    ParcelLockerModel.find({ $or: [{ owner: username }, { others: username }] }, 'numberParcelLocker name', function(err, parcelLockers) {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting parcelLockers.',
@@ -29,6 +29,7 @@ module.exports = {
       return res.json(parcelLockers);
     });
   },
+  
   
   
 
