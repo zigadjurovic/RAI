@@ -9,16 +9,16 @@ const MyParcels = () => {
   const [parcelLockers, setParcelLockers] = useState([]);
 
   useEffect(() => {
+    const username = userContext.user.username; // Get the username from the user context
     axios
-  .get(`http://localhost:3001/parcel-lockers/api/parcels`)
-  .then(response => {
-    setParcelLockers(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
-
-  }, [userContext.user._id]);
+      .get(`http://localhost:3001/parcel-lockers/my-parcel-lockers/${username}`)
+      .then(response => {
+        setParcelLockers(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [userContext.user.username]);
 
   return (
     <div className="parcel-lockers">
