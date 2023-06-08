@@ -11,6 +11,7 @@ import Profile from "./components/Profile";
 import Logout from "./components/Logout";
 import AddParcelLocker from "./components/AddParcelLocker";
 import MyParcels from './components/MyParcels';
+import ParcelHistory from './components/ParcelHistory';
 import './components/styles/App.css';
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
               <Route exact path="/parcel-lockers" element={<ParcelLockers />} />
               <Route exact path="/parcel-lockers/:id" element={<ParcelLocker />} />
               <Route path="/parcel-lockers/:id/edit" element={<EditParcelLocker />} />
+              <Route path="/parcel-lockers/:numberParcelLocker/history" element={<ParcelHistory />} />
               <Route path="/my-parcels" element={<MyParcels />} />
             </Routes>
           </div>
