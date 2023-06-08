@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../userContext";
 import { Link } from 'react-router-dom';
 import "./styles/ParcelLockers.css";
+import ParcelHistory from './ParcelHistory';
 
 const ParcelLockers = () => {
   const [parcels, setParcels] = useState([]);
@@ -42,6 +43,7 @@ const ParcelLockers = () => {
           <p>Number: {parcel.numberParcelLocker}</p>
           {user && user.isAdmin && <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link> }
           {user && user.isAdmin && <button onClick={() => handleDelete(parcel._id)}>Delete</button> }
+          <Link to={`/parcel-lockers/${parcel.numberParcelLocker}/history`}>See more</Link>
         </div>
       ))}
     </div>
