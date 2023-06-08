@@ -23,8 +23,8 @@ router.use(bodyParser.json());
  * GET
  */
 router.get('/all', corsSettings, parcelLockerController.list);
-router.get('/', corsSettings, parcelLockerController.myParcelLockers);
-router.get('/parcels/user/:id', corsSettings, parcelLockerController.getMyParcelsByUserId); //active
+router.get('/my-parcel-lockers/:username', corsSettings, parcelLockerController.myParcelLockers);
+router.get('/my-parcel-lockers/:id', corsSettings, parcelLockerController.getMyParcelLockers); //active
 /*
  * GET
  */

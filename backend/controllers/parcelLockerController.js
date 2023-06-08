@@ -15,21 +15,23 @@ module.exports = {
   },
   
 
-  myParcelLockers: function(req, res) {
-    var id = req.session.userId;
-    console.log(id);
-
-    ParcelLockerModel.find({ owner: id }, 'numberParcelLocker name', function(err, parcelLockers) {
+  myParcelLockers: function (req, res) {
+    var username = req.params.username; // Get the username from the request parameters
+  
+    ParcelLockerModel.find({ $or: [{ owner: username }, { others: username }] }, 'numberParcelLocker name', function(err, parcelLockers) {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting parcelLockers.',
           error: err
         });
       }
-
+  
       return res.json(parcelLockers);
     });
   },
+  
+  
+  
 
   myParcelLockersApi: function(req, res) {
     var id = req.params.id;

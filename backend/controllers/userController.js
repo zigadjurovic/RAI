@@ -141,7 +141,9 @@ module.exports = {
                 return next(err);
             }
             req.session.userId = user._id;
+            req.session.username = user.username;
             console.log("userId: " + req.session.userId);
+            console.log("username: " + req.session.username);
             //res.redirect('/users/profile');
             return res.json(user);
         });

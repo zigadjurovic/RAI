@@ -4,7 +4,18 @@ import { Link } from "react-router-dom";
 import "./styles/Header.css"; // Import CSS file for styling
 
 function Header(props) {
-  const { user } = useContext(UserContext); // Use useContext hook to access user context
+  const { user, setUserContext } = useContext(UserContext);
+
+  const handleLogout = () => {
+    // Call the logout API endpoint to log out the user
+    // ...
+    // Clear user data from local storage
+    localStorage.removeItem("user");
+    // Clear the user context
+    setUserContext(null);
+    // Redirect the user to the login page
+    window.location.href = "/login";
+  };
 
   return (
     <nav id="navbar">
@@ -17,36 +28,38 @@ function Header(props) {
 
         <ul id="menu">
           {user ? (
-                <>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        {user.isAdmin && <Link to="/addParcelLocker">Add Parcel</Link> }
-                    </li>
-                    <li>
-                        {!user.isAdmin && <Link to="/my-parcels">My Parcels</Link> }
-                    </li>
-                    <li>
-                        {!user.isAdmin && <Link to="/profile">Profile</Link> }
-                    </li>
-                    <li>
-                        {user.isAdmin && <Link to="/profile" className="admin">Admin</Link> }
-                    </li>
-                    <li>
-                        <Link to="/logout">Logout</Link>
-                    </li>
-                </>
-            ) : (
-                <>
-                    <li>
-                        <Link to="/login">Login</Link>
-                    </li>
-                    <li>
-                        <Link to="/register">Register</Link>
-                    </li>
-                </>
-            )}
+            <>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>{user.isAdmin && <Link to="/addParcelLocker">Add Parcel</Link>}</li>
+              <li>
+                {!user.isAdmin && <Link to="/my-parcels">My Parcels</Link>}
+              </li>
+              <li>{!user.isAdmin && <Link to="/profile">Profile</Link>}</li>
+              <li>
+                {user.isAdmin && (
+                  <Link to="/profile" className="admin">
+                    Admin
+                  </Link>
+                )}
+              </li>
+              <li>
+                <Link to="/" onClick={handleLogout} className="logout-link">
+                  Logout
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>

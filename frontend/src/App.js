@@ -28,11 +28,27 @@ function App() {
    * Context se osveži, vsakič ko osvežimo aplikacijo v brskalniku. Da preprečimo neželeno odjavo uporabnika,
    * lahko context trajno hranimo v localStorage v brskalniku.
    */
-  const [user, setUser] = useState(localStorage.user ? JSON.parse(localStorage.user) : null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        return JSON.parse(storedUser);
+      } catch (error) {
+        console.error("Error parsing stored user:", error);
+      }
+    }
+    return null;
+  });
+  
   const updateUserData = (userInfo) => {
-    localStorage.setItem("user", JSON.stringify(userInfo));
-    setUser(userInfo);
-  }
+    try {
+      localStorage.setItem("user", JSON.stringify(userInfo));
+      setUser(userInfo);
+    } catch (error) {
+      console.error("Error saving user data to localStorage:", error);
+    }
+  };
+  
 
   /**
    * Na vrhu vključimo komponento Header, z naslovom in menijem.
