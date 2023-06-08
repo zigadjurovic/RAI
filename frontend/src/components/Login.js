@@ -7,7 +7,8 @@ function Login(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const userContext = useContext(UserContext); 
+    const userContext = useContext(UserContext);
+    const { user, setUserContext } = useContext(UserContext);
 
     async function Login(e){
         e.preventDefault();
@@ -30,9 +31,16 @@ function Login(){
         }
     }
 
+    if (user) {
+        return user.isAdmin ? (
+          <Navigate replace to="/" />
+        ) : (
+          <Navigate replace to="/my-parcels" />
+        );
+      }
+
     return (
         <form onSubmit={Login}>
-            {userContext.user ? <Navigate replace to="/" /> : ""}
             <div class="login">
                 <div class="form">
                     <p>Welcome</p>
