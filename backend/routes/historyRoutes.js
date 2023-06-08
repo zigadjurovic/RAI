@@ -17,5 +17,6 @@ function requiresLogin(req, res, next){
 router.get('/history/', historyController.getAll);
 router.get('/history/:id', historyController.get);
 router.post('/history/', upload.none(), historyController.add);
+router.get('/numberParcelLocker/:numberParcelLocker', historyController.getByNumberParcelLocker);
 
 module.exports = router;
