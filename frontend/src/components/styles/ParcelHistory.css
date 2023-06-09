@@ -1,15 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
 .parcel-history {
-    background-color: #c4c4c4;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+    background: #e0e0e0;
+    width: 600px;
+    padding: 45px;
+    border-radius: 50px;
+    margin: 45px auto;
+    box-shadow: -11px 11px 22px #bebebe, 11px -11px 22px #ffffff;
+    font-family: 'Comfortaa', cursive;
 }
+
 
 .title {
     font-size: 24px;
     font-weight: bold;
     color: #000000;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 .history-list {
@@ -19,11 +25,11 @@
 }
 
 .history-item {
-    padding: 10px;
-    border: 1px solid #626262;
+    background: #d0d0d0;
+    padding: 15px;
+    margin: 15px 0;
     border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #a8a8a8;
+    font-size: 14px;
 }
 
 .date {
@@ -42,4 +48,18 @@
 
 .failure {
     color: #FF0000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-button {
+    padding: 10px;
+    background-color: #c4c4c4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
