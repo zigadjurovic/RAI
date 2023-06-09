@@ -15,20 +15,19 @@ body {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: linear-gradient(45deg, #00FFFF, #00BFFF);
   border-radius: 10px;
   max-width: 600px;
   margin: 0 auto 100px;
   padding: 45px;
   text-align: center;
   border-radius: 50px;
-  background: #e0e0e0;
-  box-shadow:  -11px 11px 22px #bebebe, 11px -11px 22px #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .form input {
   outline: 0;
-  background: #e0e0e0;
+  background: rgba(255, 255, 255, 0.8);
   width: 100%;
   border: 0;
   border-radius: 5px;
@@ -37,28 +36,39 @@ body {
   box-sizing: border-box;
   font-size: 14px;
   font-family: 'Comfortaa', cursive;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form input:focus {
-  background: #e0e0e0;
+  background: rgba(255, 255, 255, 1);
 }
 
 .form button {
   font-family: 'Comfortaa', cursive;
   text-transform: uppercase;
   outline: 0;
-  background: #e0e0e0;
+  background: #00BFFF;
   width: 100%;
   border: 0;
   border-radius: 5px;
   padding: 15px;
   color: #FFFFFF;
   font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
   cursor: pointer;
+}
+
+.form button:hover {
+  background: #009ACD;
 }
 
 .form button:active {
   background: #395591;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
 }

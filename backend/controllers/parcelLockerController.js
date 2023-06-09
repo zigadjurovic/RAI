@@ -50,21 +50,21 @@ module.exports = {
 
   show: function(req, res) {
     var id = req.params.id;
-
-    ParcelLockerModel.findOne({ _id: id }, 'numberParcelLocker name', function(err, parcelLocker) {
+  
+    ParcelLockerModel.findOne({ _id: id }, 'numberParcelLocker name others', function(err, parcelLocker) {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting parcelLocker.',
           error: err
         });
       }
-
+  
       if (!parcelLocker) {
         return res.status(404).json({
           message: 'No such parcelLocker'
         });
       }
-
+  
       return res.json(parcelLocker);
     });
   },
@@ -134,7 +134,7 @@ module.exports = {
   update: function(req, res) {
     var id = req.params.id;
   
-    ParcelLockerModel.findOne({ _id: id }, 'numberParcelLocker name', function(err, parcelLocker) {
+    ParcelLockerModel.findOne({ _id: id }, 'numberParcelLocker name others', function(err, parcelLocker) {
       if (err) {
         return res.status(500).json({
           message: 'Error when getting parcelLocker',
@@ -150,6 +150,7 @@ module.exports = {
   
       parcelLocker.numberParcelLocker = req.body.numberParcelLocker || parcelLocker.numberParcelLocker;
       parcelLocker.name = req.body.name || parcelLocker.name;
+      parcelLocker.others = req.body.others || parcelLocker.others;
   
       parcelLocker.save(function(err, parcelLocker) {
         if (err) {
@@ -162,7 +163,7 @@ module.exports = {
         return res.json(parcelLocker);
       });
     });
-  },  
+  },
 
   remove: function(req, res) {
     var id = req.params.id;

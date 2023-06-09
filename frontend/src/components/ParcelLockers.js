@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useContext } from "react";
-import { UserContext } from "../userContext";
+import { UserContext } from '../userContext';
 import { Link } from 'react-router-dom';
-import "./styles/ParcelLockers.css";
+import './styles/ParcelLockers.css';
+import ParcelHistory from './ParcelHistory';
 
 const ParcelLockers = () => {
   const [parcels, setParcels] = useState([]);
@@ -34,17 +34,28 @@ const ParcelLockers = () => {
   };
 
   return (
-    <div className="parcel-lockers">
-      <h2>Parcel Lockers</h2>
-      {parcels.map((parcel) => (
-        <div key={parcel._id} className="parcel-locker-card">
-          <h3>{parcel.name}</h3>
-          <p>Number: {parcel.numberParcelLocker}</p>
-          {user && user.isAdmin && <Link to={`/parcel-lockers/${parcel._id}/edit`}>Edit</Link> }
-          {user && user.isAdmin && <button onClick={() => handleDelete(parcel._id)}>Delete</button> }
-        </div>
-      ))}
-    </div>
+      <div className="parcel-lockers">
+        <h2 className="title">Parcel Lockers</h2>
+        {parcels.map((parcel) => (
+            <div key={parcel._id} className="parcel-locker-card">
+              <h3>{parcel.name}</h3>
+              <p>Number: {parcel.numberParcelLocker}</p>
+              {user && user.isAdmin && (
+                  <div className="actions">
+                    <Link to={`/parcel-lockers/${parcel._id}/edit`} className="edit-link">
+                      Edit
+                    </Link>
+                    <button onClick={() => handleDelete(parcel._id)} className="delete-button">
+                      Delete
+                    </button>
+                  </div>
+              )}
+              <Link to={`/parcel-lockers/${parcel.numberParcelLocker}/history`} className="see-more-link">
+                See more
+              </Link>
+            </div>
+        ))}
+      </div>
   );
 };
 

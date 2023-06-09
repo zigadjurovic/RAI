@@ -5,8 +5,9 @@ import './styles/AddParcelLocker.css';
 function EditParcelLocker() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [name, setName] = useState(''); // Changed variable name
+  const [name, setName] = useState('');
   const [numberParcelLocker, setNumberParcelLocker] = useState('');
+  const [others, setOthers] = useState(''); // Added state variable
 
   useEffect(() => {
     fetch(`http://localhost:3001/parcel-lockers/${id}`, {
@@ -14,10 +15,14 @@ function EditParcelLocker() {
     })
       .then(res => res.json())
       .then(data => {
-        setName(data.name);  // Updated
-        setNumberParcelLocker(data.numberParcelLocker);  // Kept same
+        setName(data.name); 
+        setNumberParcelLocker(data.numberParcelLocker);
+        setOthers(data.others?.join(', ') || ''); // Add this line
       });
   }, [id]);
+  
+  
+  
 
   const handleUpdate = async () => {
     try {
@@ -27,8 +32,9 @@ function EditParcelLocker() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name,   // Updated
+          name,
           numberParcelLocker,
+          others, // Updated
         }),
         credentials: 'include',
       });
@@ -50,8 +56,8 @@ function EditParcelLocker() {
           type="text"
           className="form-control"
           placeholder="Name"
-          value={name}  // Updated
-          onChange={event => setName(event.target.value)}  // Updated
+          value={name}
+          onChange={event => setName(event.target.value)}
         />
         <input
           type="text"
@@ -59,6 +65,13 @@ function EditParcelLocker() {
           placeholder="Number"
           value={numberParcelLocker}
           onChange={event => setNumberParcelLocker(event.target.value)}
+        />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Others"
+          value={others} // Added field
+          onChange={event => setOthers(event.target.value)} // Added field
         />
         <button onClick={handleUpdate} className="form-control">
           Update

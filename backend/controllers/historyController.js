@@ -56,4 +56,27 @@ module.exports = {
             return res.json(history);
         });
     },
+
+    getByNumberParcelLocker: function (req, res) {
+        var numberParcelLocker = req.params.numberParcelLocker;
+      
+        HistoryModel.find({ parentMailBox: numberParcelLocker }, function (err, history) {
+          if (err) {
+            return res.status(500).json({
+              message: 'Error when getting history.',
+              error: err
+            });
+          }
+      
+          if (!history || history.length === 0) {
+            return res.status(404).json({
+              message: 'No history found for the given numberParcelLocker'
+            });
+          }
+      
+          return res.json(history);
+        });
+      },
+      
+      
 };

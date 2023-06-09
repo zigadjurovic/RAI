@@ -30,7 +30,7 @@ function Header(props) {
           {user ? (
             <>
               <li>
-                <Link to="/">Home</Link>
+                {user.isAdmin && <Link to="/">Home</Link>}
               </li>
               <li>{user.isAdmin && <Link to="/addParcelLocker">Add Parcel</Link>}</li>
               <li>
