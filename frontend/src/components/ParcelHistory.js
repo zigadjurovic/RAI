@@ -5,7 +5,7 @@ import './styles/ParcelHistory.css';
 
 const ParcelHistory = () => {
   const [history, setHistory] = useState([]);
-  const { numberParcelLocker } = useParams(); // Retrieve the numberParcelLocker from URL parameters
+  const { numberParcelLocker } = useParams();
 
   useEffect(() => {
     const fetchParcelHistory = async () => {
@@ -20,14 +20,21 @@ const ParcelHistory = () => {
     fetchParcelHistory();
   }, [numberParcelLocker]);
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
-      <div className="parcel-history">
-        <h3 className="title">History for Parcel: {numberParcelLocker}</h3>
+    <div className="parcel-history">
+        <div className="header-container">
+            <h3 className="title">History for Parcel: {numberParcelLocker}</h3>
+            <button onClick={goBack} className="back-button">Back</button>
+        </div>
         <ul className="history-list">
           {history.map((item) => (
               <li key={item._id} className="history-item">
                 <p className="date">Date: {item.date}</p>
-                <p className={`open ${item.open ? 'success' : 'failure'}`}>Open: {item.open ? 'Yes' : 'No'}</p>
+                <p className={`open ${item.open.toLowerCase() === 'opened' ? 'success' : 'failure'}`}>Opened: {item.open.toLowerCase() === 'opened' ? 'Yes' : 'No'}</p>
               </li>
           ))}
         </ul>
